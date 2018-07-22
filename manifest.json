@@ -1,0 +1,42 @@
+{
+  "name": "TimeTrackerInserter",
+  "version": "1.0",
+  "description": "Extension to paste Time Tracker data set.",
+  "background": {
+    
+    "persistent": false,
+    "page": "pages/background.html"
+  },
+  "permissions": [
+    "<all_urls>",
+    "clipboardRead",
+    "activeTab",
+    "tabs",
+    "storage",
+    "contextMenus"],
+  "manifest_version": 2,
+  "browser_action": { },
+  "options_page": "pages/options.html",
+  "icons": { "16": "icon/logo16.png",
+             "48": "icon/logo48.png",
+             "128": "icon/logo128.png"},
+  "content_scripts": [
+    {
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+        ],
+        "css":[
+          "node_modules/toastr/build/toastr.min.css"
+        ],
+        "js": [
+            "js/contentscript.js",
+            "node_modules/jquery/dist/jquery.min.js",
+            "node_modules/toastr/build/toastr.min.js",
+            "node_modules/moment/min/moment-with-locales.min.js"
+        ],
+        "run_at": "document_end",
+        "all_frames": false
+    }
+  ]
+}
