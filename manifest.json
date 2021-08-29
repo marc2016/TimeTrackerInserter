@@ -17,9 +17,14 @@
   "manifest_version": 2,
   "browser_action": { },
   "options_page": "pages/options.html",
-  "icons": { "16": "icon/logo16.png",
-             "48": "icon/logo48.png",
-             "128": "icon/logo128.png"},
+  "icons": {
+    "16": "icon/logo16.png",
+    "48": "icon/logo48.png",
+    "128": "icon/logo128.png"
+  },
+  "web_accessible_resources": [
+    "icon/logo16.png"
+  ],
   "content_scripts": [
     {
         "matches": [
@@ -27,13 +32,14 @@
             "https://*/*"
         ],
         "css":[
-          "node_modules/toastr/build/toastr.min.css"
+          "node_modules/toastr/build/toastr.min.css",
+          "css/jiraButton.css"
         ],
         "js": [
-            "js/contentscript.js",
             "node_modules/jquery/dist/jquery.min.js",
             "node_modules/toastr/build/toastr.min.js",
-            "node_modules/moment/min/moment-with-locales.min.js"
+            "node_modules/moment/min/moment-with-locales.min.js",
+            "js/contentscript.js"
         ],
         "run_at": "document_end",
         "all_frames": false

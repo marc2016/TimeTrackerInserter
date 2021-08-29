@@ -45,3 +45,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         });
     }
 });
+
+function addTimeTrackerButton() {
+    var jiraIssueRegex = /\[(([A-Z]|\d){2,}-\d+)\](:|-)?(.*)?(- Jira)/
+    var match = jiraIssueRegex.exec(document.title)
+    var currentTimeTrackerButton = $('#timetracker')
+    if(match && currentTimeTrackerButton.length <= 0) {
+        var issueKey = match[1]
+        var issueSummery = match[4]
+        var iconUrl = chrome.runtime.getURL("icon/logo16.png");
+        var newTimeTrackerbutton = $('<a id="timetracker" class="aui-button toolbar-trigger" href="tt://issuekey='+issueKey+'&issuesummery='+issueSummery+'" resolved="" original-title="Neue Aufgabe in der TimeTracker App starten">'+
+        '<img src="'+iconUrl+'" class="tt-icon"> TimeTracker</a>')
+        $('.aui-toolbar2-secondary > div').prepend(newTimeTrackerbutton)
+    }
+}
+
+var mainDiv = document.getElementById('main');
+const config = { attributes: false, childList: true, subtree: true }
+const callback = function(mutationsList, observer) {
+    addTimeTrackerButton()
+}
+
+const observer = new MutationObserver(callback)
+observer.observe(mainDiv, config)
+
+
+addTimeTrackerButton()
